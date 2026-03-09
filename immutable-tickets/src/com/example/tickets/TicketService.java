@@ -1,19 +1,43 @@
 package com.example.tickets;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-/**
- * Service layer that creates tickets.
- *
- * CURRENT STATE (BROKEN ON PURPOSE):
- * - creates partially valid objects
- * - mutates after creation (bad for auditability)
- * - validation is scattered & incomplete
- *
- * TODO (student):
- * - After introducing immutable IncidentTicket + Builder, refactor this to stop mutating.
- */
+public class TicketService {
+
+    public IncidentTicket createTicket(String id, String reporterEmail, String title) {
+        // I removed the scattered validation from here because it's now handled inside Builder.build().
+        List<String> initialTags = new ArrayList<>();
+        initialTags.add("NEW");
+
+        // I am using the Builder to create the initial object in one fluent call.
+        return IncidentTicket.builder(id, reporterEmail, title)
+                .priority("MEDIUM")
+                .source("CLI")
+                .customerVisible(false)
+                .tags(initialTags)
+                .build();
+    }
+
+    // I refactored this to return a NEW instance. The original ticket 't' remains unchanged.
+    public IncidentTicket escalateToCritical(IncidentTicket t) {
+        List<String> newTags = new ArrayList<>(t.getTags());
+        newTags.add("ESCALATED");
+
+        return t.toBuilder()
+                .priority("CRITICAL")
+                .tags(newTags)
+                .build();
+    }
+
+    // I refactored this to use the Builder copy mechanism to "update" the assignee.
+    public IncidentTicket assign(IncidentTicket t, String assigneeEmail) {
+        return t.toBuilder()
+                .assigneeEmail(assigneeEmail)
+                .build();
+    }
+}
+
+/* Initial code
 public class TicketService {
 
     public IncidentTicket createTicket(String id, String reporterEmail, String title) {
@@ -50,3 +74,4 @@ public class TicketService {
         t.setAssigneeEmail(assigneeEmail);
     }
 }
+*/
