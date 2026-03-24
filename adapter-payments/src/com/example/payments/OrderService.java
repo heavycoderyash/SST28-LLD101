@@ -20,8 +20,6 @@ public class OrderService {
         
         if (gw == null) throw new IllegalArgumentException("unknown provider: " + provider);
         
-        // I am calling the interface method. 
-        // I dont know or care if its FastPay,SafeCash or a new provider.
         return gw.charge(customerId, amountCents);
     }
 }

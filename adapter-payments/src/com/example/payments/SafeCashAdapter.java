@@ -9,7 +9,7 @@ public class SafeCashAdapter implements PaymentGateway {
 
     @Override
     public String charge(String customerId, int amountCents) {
-        // SafeCash has a two-step process- create then confirm.
+        // SafeCash has a two-step process create then confirm.
         // I am encapsulating this complexity here so the OrderService doesnt have to know about SafeCashPayment objects.
         SafeCashPayment payment = client.createPayment(amountCents, customerId);
         return payment.confirm();

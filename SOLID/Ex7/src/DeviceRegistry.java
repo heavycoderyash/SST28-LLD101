@@ -14,7 +14,7 @@ public class DeviceRegistry {
         for (Object d : devices) {
             if (type.isInstance(d)) return type.cast(d);
         }
-        throw new IllegalStateException("Missing device of type: " + type.getSimpleName());
+        throw new IllegalStateException("Device missing");
     }
 }
 

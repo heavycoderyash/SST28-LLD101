@@ -20,7 +20,7 @@ public class Main {
             } else {
                 // I replaced the try-catch block with a check.
                 // This satisfies LSP because the caller no longer needs subtype-specific logic to handle special requirements.
-                System.out.println("WA ERROR: phone must start with + and country code");
+                System.out.println("Error: phone must start with + and country code");
                 audit.add("WA failed");
             }
         }
