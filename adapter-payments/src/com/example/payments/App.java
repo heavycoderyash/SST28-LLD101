@@ -3,7 +3,7 @@ package com.example.payments;
 import java.util.*;
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args) {;
         Map<String, PaymentGateway> gateways = new HashMap<>();
         
         // I am now registering the Adapters instead of the raw SDK clients.
